@@ -1,12 +1,15 @@
 package com.cognixia.jump.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 
@@ -29,18 +32,22 @@ public class User implements Serializable {
 	@NotNull
 	@Column(name = "password")
 	private String password;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Review> reviews;
 
 	
 	
 	public User() {
-		this(-1L, "n/a", "n/a");
+		this(-1L, "n/a", "n/a", new ArrayList<>());
 	}
 
-	public User(Long user_id, String username, String password) {
+	public User(Long user_id, String username, String password, List<Review> reviews) {
 		super();
 		this.user_id = user_id;
 		this.username = username;
 		this.password = password;
+		this.reviews = reviews;
 	}
 
 	public Long getUser_id() {
@@ -65,6 +72,20 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	
+	public List<Review> getReviews() {
+		return reviews;
+	}
+	
+	public void setReviews(List<Review> reviews) {
+		reviews.forEach(a -> addReview(a));
+	}
+	
+	public void addReview(Review review) {
+		review.setUser(this);
+		this.reviews.add(review);
 	}
 
 
