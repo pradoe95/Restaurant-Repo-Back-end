@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognixia.jump.model.Review;
+import com.cognixia.jump.repository.RestaurantRepository;
 import com.cognixia.jump.repository.ReviewRepository;
+import com.cognixia.jump.repository.UserRepository;
 
 @CrossOrigin
 @RequestMapping("/api")
@@ -19,6 +21,12 @@ public class ReviewController {
 	//autowired with repository, can be changed to ReviewService as we add the class. 
 	@Autowired
 	ReviewRepository service;
+	
+	@Autowired
+	UserRepository u_service;
+	
+	@Autowired
+	RestaurantRepository r_service;
 	
 	@CrossOrigin
 	@GetMapping("/reviews")
