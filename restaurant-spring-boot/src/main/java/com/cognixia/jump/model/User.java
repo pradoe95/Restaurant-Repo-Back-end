@@ -30,7 +30,7 @@ public class User implements Serializable {
 	private String username;
 	
 	@NotNull
-	@Column(name = "password")
+	@Column(name = "password", unique = true)
 	private String password;
 	
 	@OneToMany(mappedBy = "user")

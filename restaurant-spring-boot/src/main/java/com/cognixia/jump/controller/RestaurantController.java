@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,20 @@ public class RestaurantController {
 			return newRes.get();
 		
 		return new Restaurant();
+	}
+	
+	
+	@CrossOrigin
+	@PostMapping("/restaurant/add")
+	public void addRestaurant(@RequestBody Restaurant newRes) {
+		Restaurant added = service.save(newRes);
+		System.out.println("added : " + added.toString());
+	}
+	
+	@CrossOrigin
+	@GetMapping("/restaurant/name/{name}")
+	public List<Restaurant> getRestaruantsByName(@PathVariable String name) {
+		return service.findRestaurantsByName(name);
 	}
 	
 	@CrossOrigin

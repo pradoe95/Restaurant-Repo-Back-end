@@ -30,6 +30,10 @@ public class Restaurant implements Serializable {
 	@Column(name = "address")
 	private String address;
 	
+	@NotNull
+	@Column(name = "name")
+	private String name;
+	
 	@Column
 	private String description;
 	
@@ -42,13 +46,14 @@ public class Restaurant implements Serializable {
 	
 
 	public Restaurant() {
-		this(-1L, "n/a", "n/a", -1.0, new ArrayList<>());
+		this(-1L, "n/a", "n/a", "n/a", -1.0, new ArrayList<>());
 	}
 	
-	public Restaurant(Long restaruant_id, @NotNull String address, String description,
+	public Restaurant(Long restaruant_id, @NotNull String address, @NotNull String name, String description,
 			@Range(min = 0, max = 5) Double average_rating, List<Review> reviews) {
 		super();
 		this.restaruant_id = restaruant_id;
+		this.name = name;
 		this.address = address;
 		this.description = description;
 		this.average_rating = average_rating;
@@ -61,6 +66,14 @@ public class Restaurant implements Serializable {
 
 	public void setRestaruant_id(Long restaruant_id) {
 		this.restaruant_id = restaruant_id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAddress() {
