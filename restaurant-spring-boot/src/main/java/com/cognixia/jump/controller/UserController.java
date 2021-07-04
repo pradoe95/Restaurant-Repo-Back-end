@@ -35,7 +35,7 @@ public class UserController {
 	}
 	
 	@CrossOrigin
-	@GetMapping("/users/{id}")
+	@GetMapping("/user/{id}")
 	public User getUser(@PathVariable long id) {
 		Optional<User> resultUser = service.findById(id);
 		if(resultUser.isPresent()) {
