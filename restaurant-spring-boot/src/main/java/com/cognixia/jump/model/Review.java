@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.Range;
 
@@ -25,6 +27,14 @@ public class Review implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long review_id;
 	
+//	@ManyToOne
+//	@JoinColumn(name = "user_id")
+//	private User user;
+//	
+//	@ManyToOne
+//	@JoinColumn(name = "restaurant_id")
+//	private Restaurant restaurant;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -39,7 +49,8 @@ public class Review implements Serializable {
 	@Column
 	private Date date;
 	
-	@Range(min = 0, max = 5)
+	@Min(value = 0)
+	@Max(value = 5)
 	@Column
 	private Double rating;
 
@@ -61,22 +72,32 @@ public class Review implements Serializable {
 	public Long getReview_id() {
 		return review_id;
 	}
+	
+	
 
 	public void setReview_id(Long review_id) {
 		this.review_id = review_id;
 	}
 
-	public User getUser() {
-		return user;
+	public Long getUserId() {
+		return user.getUser_id();
 	}
+	
+//	public User getUser() {
+//		return user;
+//	}
 
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	public Restaurant getRestaurant() {
-		return restaurant;
+	
+	public Long getRestaurantId() {
+		return restaurant.getRestaruant_id();
 	}
+
+//	public Restaurant getRestaurant() {
+//		return restaurant;
+//	}
 
 	public void setRestaurant(Restaurant restaurant) {
 		this.restaurant = restaurant;
