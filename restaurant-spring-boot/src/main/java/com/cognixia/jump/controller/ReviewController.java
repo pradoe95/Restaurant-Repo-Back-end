@@ -9,13 +9,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cognixia.jump.model.Restaurant;
 import com.cognixia.jump.model.Review;
+import com.cognixia.jump.model.User;
 import com.cognixia.jump.repository.RestaurantRepository;
 import com.cognixia.jump.repository.ReviewRepository;
 import com.cognixia.jump.repository.UserRepository;
@@ -54,9 +57,21 @@ public class ReviewController {
 	}
 	
 	
-//	@CrossOrigin
-//	@PostMapping("/review/add/{user_id}/{restaurant_id}")
-//	public void addReview(@)
+	@CrossOrigin
+	@PostMapping("/review/add/{userId}/{restaurantId}")
+	public void addReview(@PathVariable("userId") long userId, @PathVariable("restaurantId") long restaurantId, @RequestBody Review review) {
+		Optional<User> userFound = u_service.findById(userId);
+		Optional<Restaurant> resFound = r_service.findById(restaurantId);
+		if(userFound.isPresent() && resFound.isPresent()) {
+			review.setUser(userFound.get());
+			review.setRestaurant(resFound.get());
+			Review newReview = service.save(review);
+			System.out.println("successfully added a review: " + newReview.toString());
+		}
+		else {
+			System.out.println("failed to add a review");
+		}
+	}
 	
 	
 	@CrossOrigin
