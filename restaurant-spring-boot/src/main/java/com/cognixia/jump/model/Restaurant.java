@@ -10,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
@@ -39,8 +37,7 @@ public class Restaurant implements Serializable {
 	@Column
 	private String description;
 
-	@Min(value = 0)
-	@Max(value = 5)
+
 	@Column
 	private Double average_rating;
 	
